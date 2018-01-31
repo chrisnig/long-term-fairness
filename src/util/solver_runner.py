@@ -168,6 +168,8 @@ class FairSolverRunner(SolverRunner):
 
 
 class FairNonLinearSolverRunner(FairSolverRunner):
+    alpha_2 = 1
+
     def get_file_prefix(self):
         return "fair-nonlinear"
 
@@ -197,6 +199,6 @@ class FairNonLinearSolverRunner(FairSolverRunner):
             for violations in range(total_requests + 1):
                 current_sat = (total_requests - violations) / (weeks * days)
                 vio_sat = self.gamma * current_sat + (1 - self.gamma) * self.parameters.get("s_hat", (phys,))
-                c[(phys, violations)] = violations * (2 - vio_sat)
+                c[(phys, violations)] = self.alpha_2 * violations * (2 - vio_sat)
 
         self.replace_param_in_cdat("c", c, directory)
