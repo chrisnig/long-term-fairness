@@ -99,17 +99,8 @@ class SatisfactionEvaluator:
                     delta_req_off = solution.count_if_exists("delta_req_off", (phys, None, None))
                     sat = (req_on - delta_req_on + req_off - delta_req_off) / days
 
-                    delta_eq = 0
-                    for week in range(1, int(parameters.get_scalar("W_max")) + 1):
-                        for duty in parameters.get_set("I"):
-                            if "delta_eq_plus" in solution:
-                                delta_eq += solution.get("delta_eq_plus", (phys, duty, week))
-                            if "delta_eq_minus" in solution:
-                                delta_eq -= solution.get("delta_eq_minus", (phys, duty, week))
-
                     mode_result[phys] = {
                         "satisfaction": sat,
-                        "load": delta_eq,
                         "delta_req_on": delta_req_on,
                         "delta_req_off": delta_req_off
                     }
