@@ -85,11 +85,12 @@ class SolverRunner:
             searching = True
             skipping = False
             for line in infile:
-                if not skipping and (not searching or not line.startswith("%" + param)):
+                is_requested_param_line = line.startswith("%" + param + "[")
+                if not skipping and (not searching or not is_requested_param_line):
                     outfile.write(line)
                     continue
 
-                if not skipping and line.startswith("%" + param + "["):
+                if not skipping and is_requested_param_line:
                     outfile.write(line)
                     searching = False
                     for key, value in values.items():
