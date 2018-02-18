@@ -89,7 +89,7 @@ class SolverRunner:
                     outfile.write(line)
                     continue
 
-                if not skipping and line.startswith("%" + param):
+                if not skipping and line.startswith("%" + param + "["):
                     outfile.write(line)
                     searching = False
                     for key, value in values.items():
